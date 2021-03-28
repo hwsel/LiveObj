@@ -163,14 +163,14 @@ def ReadOneuserData(FileName,flagTime):
     #flagTime = 1
     Userdata = []
     with open(FileName) as csvfile:
-        csv_reader = csv.reader(csvfile)  # 使用csv.reader读取csvfile中的文件
-        birth_header = next(csv_reader)  # 读取第一行每一列的标题
-        for row in csv_reader:  # 将csv 文件中的数据保存到Userdata中
+        csv_reader = csv.reader(csvfile)  
+        birth_header = next(csv_reader) 
+        for row in csv_reader:  
             Userdata.append(row[1:])
             if flagTime == 1:
                 TimeStamp.append(row[0])
-    Userdata = [[float(x) for x in row] for row in Userdata]  # 将数据从string形式转换为float
-    Userdata = np.array(Userdata)  # 将list数组转化成array数组便于查看数据结构
+    Userdata = [[float(x) for x in row] for row in Userdata]  
+    Userdata = np.array(Userdata)  
     return Userdata,TimeStamp
 
 def GetUserDataPerframe(FileName,flagTime,frameRate,ResolutionW,ResolutionH,LenU):
@@ -215,7 +215,7 @@ def GetUserDataPerframe(FileName,flagTime,frameRate,ResolutionW,ResolutionH,LenU
             PreTime = CurTime + 1
             #UL=len(UserIn1s)
             UL=Ind
-            # 加入1s内用户抽样，原用户并不是一秒30个
+        
             if UL < frameRate:
                 for k in range(0, UL):
                     UserDperFrame.append(UserIn1s[k])
@@ -666,7 +666,7 @@ if __name__ == '__main__':
 
                 '''
     
-                # 第一帧不用管
+                # 
                 if IsFirst == False:
                     UpdateTrack(Namelist, CorUPleft, CorDownRig, FNamelist, FCorUPleft, FCorDownRig, FConfi)
                     DrwaObject(FNamelist, FCorUPleft, FCorDownRig, FConfi, orig_im)
@@ -679,7 +679,7 @@ if __name__ == '__main__':
                     DrwaObject(FNamelist, FCorUPleft, FCorDownRig, FConfi, orig_im)
     
                 IsFirst = False
-                # print("第2次")
+                # print("2")
                 stu3 = []
                 for i in range(0, len(FNamelist)):
                     if FConfi[i] == 1:
