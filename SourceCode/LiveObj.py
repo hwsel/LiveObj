@@ -26,7 +26,7 @@ ShrinkV=3
 bufferLen=4
 UserView=200
 lenU = 120          #korean 240
-Tracking= False
+Tracking= True
 
 def FromObjectToUpdatTile(Namelist, CorUPleft, CorDownRig, TileStatus,height, width,tileNo):
     L = len(Namelist)
