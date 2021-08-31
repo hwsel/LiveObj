@@ -18,8 +18,7 @@ import _thread
 from multiprocessing import Process
 import math
 
-from QTable import RL_Qtable
-from Dataset import LocationCalculate
+
 
 
 ShrinkV=3
@@ -172,64 +171,6 @@ def ReadOneuserData(FileName,flagTime):
     Userdata = [[float(x) for x in row] for row in Userdata]  
     Userdata = np.array(Userdata)  
     return Userdata,TimeStamp
-
-def GetUserDataPerframe(FileName,flagTime,frameRate,ResolutionW,ResolutionH,LenU):
-    flagTime=1
-    OneUserData,TimeStamp=ReadOneuserData(FileName,flagTime)
-    str = TimeStamp[0].split(':')
-    PreTime = math.ceil(float(str[2]))
-    CurTime = math.floor(float(str[2]))
-    count=0
-    i=0
-    #frameRate=30
-    UserDperFrame = []
-    FrameCount=frameRate+1
-    while count<LenU:
-        if FrameCount >= frameRate:
-            FrameCount=0
-            UserIn1s = []
-            Ind = 0
-            while PreTime > CurTime:
-                str = TimeStamp[i].split(':')
-                # print(str[2])
-                # Ind=Ind+1
-                # print([Ind,j])
-                CurTime = math.floor(float(str[2]))
-                if CurTime == 0 and PreTime == 60:
-                    break
-
-                x = OneUserData[i][1]
-                y = OneUserData[i][2]
-                z = OneUserData[i][3]
-                w = OneUserData[i][4]
-                H, W = LocationCalculate(x, y, z, w)
-                IH = math.floor(H * ResolutionH)
-                IW = math.floor(W * ResolutionW)
-                #UserAll.append([IW, IH])
-                    # print(IW,IH)
-                i=i+1
-                UserIn1s.append([IW, IH])
-                Ind=Ind+1
-            #print(Ind)
-            FrameCount = 0
-            PreTime = CurTime + 1
-            #UL=len(UserIn1s)
-            UL=Ind
-        
-            if UL < frameRate:
-                for k in range(0, UL):
-                    UserDperFrame.append(UserIn1s[k])
-                for k in range(UL - 1, frameRate):
-                    UserDperFrame.append(UserIn1s[UL - 1])
-            else:
-                step=math.floor(UL/frameRate)
-                for k in range(0, frameRate):
-                    UserDperFrame.append(UserIn1s[k*step])
-                # UserIn1s.append(UserAllR)
-        else:
-            count=count+1
-            FrameCount = frameRate + 1
-    return UserDperFrame
 
 
 
@@ -450,8 +391,8 @@ if __name__ == '__main__':
         TileNO=10           # the final number should be TileNO*TileNO
         TileStatus=[3]*TileNO*TileNO
 
-
-        UserDataPF = GetUserDataPerframe(fileName, 1, Framerate, width, height, lenU)
+        #obtain the user trace from reference[27]
+        UserDataPF = []
         UserLenData=len(UserDataPF)
         ''' ===========================test video and user data================================'''
         TestUserDataInVIdeo=False
@@ -461,7 +402,8 @@ if __name__ == '__main__':
             fileName = "video_0_2.csv"
             f = 1
             i=0
-            UserDat = GetUserDataPerframe(fileName, Framerate, 30, 1280, 720, lenU)
+            #obtain the user trace from reference[27]
+        UserDataPF = []
             while cap.isOpened():
                 ret, frame = cap.read()
 
