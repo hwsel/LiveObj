@@ -25,7 +25,7 @@ from Dataset import LocationCalculate
 ShrinkV=3
 bufferLen=4
 UserView=200
-lenU = 120          #korean 240
+lenU = 120          
 Tracking= True
 
 def FromObjectToUpdatTile(Namelist, CorUPleft, CorDownRig, TileStatus,height, width,tileNo):
@@ -519,7 +519,7 @@ if __name__ == '__main__':
                 output = write_results(output, confidence, num_classes, nms=True, nms_conf=nms_thesh)
 
                 if type(output) == int:
-                    print("第一次")
+                    print("====")
                     frames += 1
                     print("FPS of the video is {:5.2f}".format(frames / (time.time() - start)))
                     cv2.imshow("frame", orig_im)
