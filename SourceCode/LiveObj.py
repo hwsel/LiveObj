@@ -316,7 +316,10 @@ def DrwaObject(FNamelist, FCorUPleft, FCorDownRig, FConfi, orig_im):
 
 
 if __name__ == '__main__':
-
+'''===========================
+    Work done in 2019 and the author is no longer working on this
+    For further discussion please send email to fengx17@miamioh.edu
+    ==========================='''
     for UserIndex in range(1,49):
         args = arg_parse()
         confidence = float(args.confidence)
